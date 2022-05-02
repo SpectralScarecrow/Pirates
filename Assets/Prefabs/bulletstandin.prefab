@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8378324273078338763}
   - component: {fileID: 6510075299257080278}
   - component: {fileID: 8327389865086119443}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bulletstandin
   m_TagString: PBullet
   m_Icon: {fileID: 0}
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   rb: {fileID: 6510075299257080278}
+  lifeTime: 10
 --- !u!50 &6510075299257080278
 Rigidbody2D:
   serializedVersion: 4

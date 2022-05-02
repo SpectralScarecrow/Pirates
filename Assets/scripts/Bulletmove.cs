@@ -8,7 +8,8 @@ public class Bulletmove : MonoBehaviour
     public float speed = 20;
     public Rigidbody2D rb;
 
-
+    [SerializeField]
+    private float lifeTime;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,11 @@ public class Bulletmove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        lifeTime -= Time.deltaTime;
+
+        if(lifeTime < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

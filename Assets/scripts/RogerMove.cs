@@ -13,11 +13,6 @@ public class RogerMove : MonoBehaviour
     Vector2 mousepos;
     Vector2 movement;
     public bool inair = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -33,10 +28,17 @@ public class RogerMove : MonoBehaviour
       
         
         //jump
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && inair == false)
         {
             rb.AddForce(new Vector2(0, jforce), ForceMode2D.Impulse);
         }
+
+
+
+
+
+
+
     }
 
 
@@ -57,12 +59,6 @@ public class RogerMove : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         
-        //bullet knockback
-        if (col.tag=="PBullet")
-        {
-            Vector2 difference = transform.position - col.transform.position;
-            transform.position = new Vector2(transform.position.x + difference.x* kbmod, transform.position.y + difference.y);
-        }
         //melee knockback
         if(col.tag == "surface")
         {
@@ -72,10 +68,40 @@ public class RogerMove : MonoBehaviour
             rb.AddForce(new Vector2(transform.position.x + difference.x * kbmod, transform.position.y +difference.y*kbmod), ForceMode2D.Force);   
             //transform.position = new Vector2(transform.position.x + difference.x * kbmod,0);
             
-            
         }
+
+        if (col.tag == "Death")
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (col.tag == "enemy")
+        {
+            Destroy(this.gameObject);
+        }
+
     }
 
+    //check if we are on ground or not
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //ground is layer 3
+        if(collision.gameObject.layer == 3)
+        {
+            inair = false;
+        }
 
+        
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        //ground is layer 3
+        if (collision.gameObject.layer == 3)
+        {
+            inair = true;
+        }
+    }
 }
